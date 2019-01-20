@@ -1,0 +1,37 @@
+{
+  "name": "lecture.express",
+  "version": "1.0.0",
+  "description": "Let's learn express!",
+  "main": "index.js",
+  "repository": "git@github.com:codechrysalis/lecture.express.git",
+  "author": "Felix Kirmse <felix@codechrysalis.io>",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js",
+    "lint": "eslint --fix --ext .js .",
+    "test": "mocha spec && yarn lint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "eslint": "^5.12.1",
+    "eslint-config-prettier": "^3.6.0",
+    "eslint-config-problems": "^2.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "husky": "^1.3.1",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.9",
+    "prettier": "^1.16.0",
+    "pretty-quick": "^1.10.0"
+  }
+}
