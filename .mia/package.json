@@ -8,15 +8,22 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "start": "node ./src/index.js",
-    "dev": "nodemon ./src/index.js",
-    "lint": "eslint --fix --ext .js .",
-    "test": "mocha spec && yarn lint"
+    "test": "mocha ./spec -R mocha-spec-json-output-reporter --reporter-options fileName=mocha-result.json,hierarchy=true",
+    "lint": "eslint ../ --ext js -c ./.eslintrc -f json -o lint-result.json --fix --ignore-pattern node_modules"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
+  "mia": {
+    "reports": [
+      {
+        "script": "test",
+        "type": "mocha",
+        "file": "mocha-result.json"
+      },
+      {
+        "script": "lint",
+        "type": "eslint",
+        "file": "lint-result.json"
+      }
+    ]
   },
   "dependencies": {
     "express": "^4.17.1"
@@ -28,8 +35,8 @@
     "eslint-config-prettier": "^6.0.0",
     "eslint-config-problems": "^3.0.1",
     "eslint-plugin-prettier": "^3.1.0",
-    "husky": "^3.0.1",
     "mocha": "^6.2.0",
+    "mocha-spec-json-output-reporter": "^1.1.7",
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1"
