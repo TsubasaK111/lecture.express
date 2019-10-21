@@ -1,9 +1,14 @@
 const { setupExpressServer } = require("../src/server");
+// We know about chai...
 const chai = require("chai");
+// ...with chai-http we can add matchers for making http requests!
 const chaiHttp = require("chai-http");
+// ... we need to tell chai to use chaiHttp though. It is a middleware
 chai.use(chaiHttp);
+// this enables us to use .should assertions instead of expecct. Personal Preference
 chai.should();
 
+// Another reason we separated creating our server from starting it
 const app = setupExpressServer();
 
 describe("The express server", () => {
@@ -12,15 +17,15 @@ describe("The express server", () => {
     request = chai.request(app);
   });
 
-  describe("express basics", () => {
-    describe("GET /teapot - modifying status", () => {
+  xdescribe("express basics", () => {
+    xdescribe("GET /teapot - modifying status", () => {
       it("should return status 418", async () => {
         const res = await request.get("/teapot");
         res.should.have.status(418);
       });
     });
 
-    describe("GET /hello - returning text", () => {
+    xdescribe("GET /hello - returning text", () => {
       it("should return the text/html 'world'", async () => {
         const res = await request.get("/hello");
         res.should.be.html;
@@ -28,7 +33,7 @@ describe("The express server", () => {
       });
     });
 
-    describe("GET /hellojson - returning json", () => {
+    xdescribe("GET /hellojson - returning json", () => {
       it("should return the JSON for { hello: 'world' }", async () => {
         const res = await request.get("/hellojson");
         res.should.be.json;
@@ -36,7 +41,7 @@ describe("The express server", () => {
       });
     });
 
-    describe("GET /greet - dealing with query parameters", () => {
+    xdescribe("GET /greet - dealing with query parameters", () => {
       it("should greet the name given in query parameter 'name' with 'Hello name!'", async () => {
         const res = await request.get("/greet").query({ name: "Mia" });
         res.should.be.html;
@@ -44,7 +49,7 @@ describe("The express server", () => {
       });
     });
 
-    describe("GET /:a/plus/:b - dealing with params", () => {
+    xdescribe("GET /:a/plus/:b - dealing with params", () => {
       it("should return a JSON object with a result field", async () => {
         const res = await request.get("/1/plus/1");
         res.should.be.json;
@@ -56,17 +61,17 @@ describe("The express server", () => {
         res.should.be.json;
         JSON.parse(res.text).result.should.equal(5);
       });
-    });
 
-    it("adds 3 + 2", async () => {
-      const res = await request.get("/3/plus/2");
-      res.should.be.json;
-      JSON.parse(res.text).result.should.equal(5);
+      it("adds 3 + 2", async () => {
+        const res = await request.get("/3/plus/2");
+        res.should.be.json;
+        JSON.parse(res.text).result.should.equal(5);
+      });
     });
   });
 
-  describe("handling bodies", () => {
-    describe("/echo endpoint", () => {
+  xdescribe("handling bodies", () => {
+    xdescribe("/echo endpoint", () => {
       it("POST /echo returns body content", async () => {
         const expected = {
           foo: "bar",
@@ -106,8 +111,8 @@ describe("The express server", () => {
     });
   });
 
-  describe("Adding middleware", () => {
-    describe("/secret Endpoint", () => {
+  xdescribe("Adding middleware", () => {
+    xdescribe("/secret Endpoint", () => {
       it("Returns status 401 when called normally", async () => {
         const res = await request.get("/secret");
         res.should.have.status(401);
@@ -123,7 +128,7 @@ describe("The express server", () => {
         res.should.have.status(401);
       });
 
-      describe("POST /secret/message Endpoint", () => {
+      xdescribe("POST /secret/message Endpoint", () => {
         it("Returns 'polo' when given a valid token query and posting a JSON body { key: 42, shout: 'marco' }", async () => {
           const res = await request
             .post("/secret/message")
@@ -142,7 +147,7 @@ describe("The express server", () => {
           res.should.have.status(401);
         });
 
-        it("Returns status 403 if anything is wrong", async () => {
+        it("Returns status 403 if token is valid, but the secret part is missing", async () => {
           const res = await request.post("/secret/message").query({ token: 6 });
           res.should.have.status(403);
         });
