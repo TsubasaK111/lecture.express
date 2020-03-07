@@ -7,4 +7,5 @@ Please follow along, raising questions at any point in time!
 ## Resources
 
 - [Insomnia](https://insomnia.rest/)
+- [Postman](https://www.getpostman.com/)
 - [Express Docs](https://expressjs.com/en/api.html)
