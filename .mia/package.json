@@ -9,7 +9,7 @@
   "private": true,
   "scripts": {
     "test": "mocha ./spec -R mocha-spec-json-output-reporter --reporter-options fileName=mocha-result.json,hierarchy=true",
-    "lint": "eslint ../ --ext js -c ./.eslintrc -f json -o lint-result.json --fix --ignore-pattern node_modules"
+    "lint": "eslint ../ --ext js -c ./.eslintrc -f json -o lint-result.json --fix --ignore-pattern node_modules --no-eslintrc"
   },
   "mia": {
     "reports": [
@@ -31,14 +31,14 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
-    "eslint": "^6.1.0",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-config-problems": "^3.0.1",
-    "eslint-plugin-prettier": "^3.1.0",
-    "mocha": "^6.2.0",
+    "eslint": "^7.13.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-config-problems": "^5.0.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "mocha": "^8.2.1",
     "mocha-spec-json-output-reporter": "^1.1.7",
-    "nodemon": "^1.19.1",
-    "prettier": "^1.18.2",
-    "pretty-quick": "^1.11.1"
+    "nodemon": "^2.0.6",
+    "prettier": "^2.1.2",
+    "pretty-quick": "^3.1.0"
   }
 }
